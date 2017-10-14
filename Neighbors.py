@@ -17,10 +17,6 @@ def caculateVecDistance(binaryVec1, binaryVec2 ):
                     dist=dist-1
     return dist
 
-#genreWeghit = 4
-#rateWeight = 2
-#yearWeight = 0.01
-#def TwoMoviesDist(genreVec1, rate1, year1, genreVec2, rate2, year2):
 def TwoMoviesDist(genreVec1, genreVec2):
 
     genreDist = caculateVecDistance(genreVec1,genreVec2)
