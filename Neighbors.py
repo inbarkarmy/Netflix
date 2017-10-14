@@ -56,7 +56,7 @@ def createMovieDistancesMatrix():
     return res
 
 def createGenreMatrix():
-    data = pd.read_csv('FixDatabase.csv',encoding='latin1')
+    data = pd.read_csv('database_new2.csv',encoding='latin1')
     totalGenres = 23
     moviesNum= len(data["title"])
     print(moviesNum)
@@ -90,7 +90,7 @@ def createUserTrainingSet():
     with open('UserFilmList.json', 'r') as fp:
         userDict = json.load(fp)
     genreMat = numpy.load("myMat.dat")
-    moviesDatabase = pd.read_csv('FixDatabase.csv', encoding='latin1')
+    moviesDatabase = pd.read_csv('database_new2.csv', encoding='latin1')
     colNum = 26
     for userID in open('users.txt'):
         usr = userDict[str(userID.rstrip())]

@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 # load data
-train_set = loadtxt('usr305344.csv', delimiter=",")
+train_set = loadtxt('usr1227322.csv', delimiter=",")
 
 col_labels = {'Comedy', 'Action', 'Adventure', 'Animated', 'Biography', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'Film-Noir', 'History',
               'Horror', 'Music', 'Musical', 'Mystery', 'Romance', 'Science Fiction', 'Sports', 'Thriller', 'War', 'Western', 'Fitness'}
