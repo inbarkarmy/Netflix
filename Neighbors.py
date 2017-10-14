@@ -126,9 +126,9 @@ def createUserTrainingSet():
         #todo : remove break
         break
 
-#movieDistancesMatrix = createGenreMatrix()
-#print("finished genre matrix")
-#movieDistancesMatrix.dump("myMat.dat")
+movieDistancesMatrix = createGenreMatrix()
+print("finished genre matrix")
+movieDistancesMatrix.dump("myMat.dat")
 createUserTrainingSet()
 
 

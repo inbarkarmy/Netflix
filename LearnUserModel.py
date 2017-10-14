@@ -1,8 +1,9 @@
+import math
 from numpy import loadtxt
 import pandas as pd
 from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import mean_squared_error
 
 # load data
 train_set = loadtxt('usr1227322.csv', delimiter=",")
@@ -33,5 +34,6 @@ predictions = [round(value) for value in y_pred]
 print(y_pred)
 
 # evaluate predictions
-accuracy = accuracy_score(y_test, predictions)
-print("Accuracy: %.2f%%" % (accuracy * 100.0))
+mse = mean_squared_error(y_test, predictions)
+rmse = math.sqrt(mse)
+print("Accuracy: %.2f%%" % (rmse * 100.0))
