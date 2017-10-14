@@ -34,7 +34,7 @@ def TwoMoviesDist(genreVec1, genreVec2):
 
 
 def createMovieDistancesMatrix():
-    data = pd.read_csv('Movies_info.csv', encoding='latin1')
+    data = pd.read_csv('Movies_info2.csv', encoding='latin1')
     moviesNum =len(data["title"])
     genreMatrix = createGenreMatrix()
     res = numpy.zeros((moviesNum, moviesNum))
@@ -111,16 +111,14 @@ def createUserTrainingSet():
                 rateImdb, ten = str(ImdbRate).split('/', 1)
                 print(rateImdb, ten)
                 userMatrix[movieCount][23] = Decimal(rateImdb)
-                if type(moviesDatabase['year'][movieID]) is str:
-                    userMatrix[movieCount][24] = 0
-                else:
-                    userMatrix[movieCount][24] = moviesDatabase['year'][movieID]
+                userMatrix[movieCount][24] = moviesDatabase['year'][movieID]
             userMatrix[movieCount][25] = usrRate
             movieCount = movieCount+1
-        fileName = 'usr'+str(userID.rstrip())+'.csv'
+        fileName = 'usersCSV/usr'+str(userID.rstrip())+'.csv'
         numpy.savetxt(fileName, userMatrix, delimiter=",")
-        #todo : remove break
+        #todo:remove break
         break
+
 
 movieDistancesMatrix = createGenreMatrix()
 print("finished genre matrix")
