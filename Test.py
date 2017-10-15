@@ -36,7 +36,7 @@ for line in open('probe.txt'):
         vec[1][24] = moviesDatabase['year'][movieID]
         vec[1][25] = usrRate
         for key in vec:
-            csvlLine1[titlesDict[key]] = res[key]
+            csvlLine1[titlesDict[key]] = vec[key]
         print("csv line: ",csvlLine1)
         csvlLine1 = [str(x) for x in csvlLine1]
         with open(fileName, 'a') as fh:
