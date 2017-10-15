@@ -18,6 +18,7 @@ for line in open('probe.txt'):
         print(usrID)
         usrInf= userDict[str(userID.rstrip())]
         #usrNearestModel = dict.get(usr)
+        #todo: inbar change usrNearestModel after we have a dictionary
         usrNearestModel = 1333
         fileName = 'Test/usr' + str(usrNearestModel) + '.csv'
         vec = numpy.zeros((1, colNum))
