@@ -67,6 +67,9 @@ def createGenreMatrix():
     for row in data["title"]:
         for i in range(3):
             curGenre = "genre"+str(i)
+            print(curGenre)
+            print(movieCount)
+            print(data.shape)
             genreA = data[curGenre][movieCount]
             genre = str(genreA).rstrip()
             for key in range(totalGenres):
@@ -97,6 +100,7 @@ def createUserTrainingSet():
             movieIdAndRate = usr[movieCount]
             movieID = int(movieIdAndRate[:movieIdAndRate.find(',')])
             movieID = movieID-1
+            #print(movieID)
             usrRate = int(movieIdAndRate[movieIdAndRate.find(',')+1:])
             #todo: check the titles didn;t mess up the movies indexes-
             #make surethe movie ID matches the genres we were expecting
@@ -107,22 +111,22 @@ def createUserTrainingSet():
             if type(ImdbRate) == float:
                 userMatrix[movieCount][23] = ImdbRate
             else:
-                print(ImdbRate)
+                #print(ImdbRate)
                 rateImdb, ten = str(ImdbRate).split('/', 1)
-                print(rateImdb, ten)
+                #print(rateImdb, ten)
                 userMatrix[movieCount][23] = Decimal(rateImdb)
-                userMatrix[movieCount][24] = moviesDatabase['year'][movieID]
+            print(movieID)
+            userMatrix[movieCount][24] = moviesDatabase['year'][movieID]
             userMatrix[movieCount][25] = usrRate
             movieCount = movieCount+1
         fileName = 'usersCSV/usr'+str(userID.rstrip())+'.csv'
         numpy.savetxt(fileName, userMatrix, delimiter=",")
         #todo:remove break
-        break
 
 
-movieDistancesMatrix = createGenreMatrix()
-print("finished genre matrix")
-movieDistancesMatrix.dump("myMat.dat")
+#movieDistancesMatrix = createGenreMatrix()
+#print("finished genre matrix")
+#movieDistancesMatrix.dump("myMat.dat")
 createUserTrainingSet()
 
 
