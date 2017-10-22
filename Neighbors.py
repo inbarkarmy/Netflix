@@ -91,7 +91,9 @@ def createUserTrainingSet():
     genreMat = numpy.load("myMat.dat")
     moviesDatabase = pd.read_csv('database_new2.csv', encoding='latin1')
     colNum = 26
+    i = 0
     for userID in open('users.txt'):
+        i = i + 1
         usr = userDict[str(userID.rstrip())]
         moviesNum = len(usr)
         userMatrix =  numpy.zeros((moviesNum, colNum))
@@ -113,14 +115,16 @@ def createUserTrainingSet():
             else:
                 #print(ImdbRate)
                 rateImdb, ten = str(ImdbRate).split('/', 1)
-                #print(rateImdb, ten)
-                userMatrix[movieCount][23] = Decimal(rateImdb)
-            print(movieID)
+                #print(movieID, moviesDatabase['title'][movieID])
+                #print("rate: ", rateImdb, " end")
+                userMatrix[movieCount][23] = (rateImdb)
+            #print(movieID)
             userMatrix[movieCount][24] = moviesDatabase['year'][movieID]
             userMatrix[movieCount][25] = usrRate
             movieCount = movieCount+1
-        fileName = 'usersCSV/usr'+str(userID.rstrip())+'.csv'
+        fileName = 'usersCSV/usr'+str(i-1)+'.csv'
         numpy.savetxt(fileName, userMatrix, delimiter=",")
+        print(i)
         #todo:remove break
 
 

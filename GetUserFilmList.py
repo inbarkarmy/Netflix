@@ -27,9 +27,7 @@ def CreateUsersFilmsDictionary():
         for line in tmp:
             user, rate, date = line.split(',', 2)
             value = str(i)+','+rate
-            if user not in UserFilmDictionary:
-                k = k +1
-                print(k)
+            if user not in UserFilmD(k)
                 UserFilmDictionary.setdefault(user, [])
             #print(value)
             UserFilmDictionary[user].append(value)
