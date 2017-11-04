@@ -5,52 +5,6 @@ import json
 import math
 from decimal import Decimal
 
-#max distance between movies - define as needed
-maxDist = 4
-
-def caculateVecDistance(binaryVec1, binaryVec2 ):
-    dist=maxDist
-    if len(binaryVec1)==len(binaryVec2):
-        for i in range(len(binaryVec1)):
-            if binaryVec1[i]==binaryVec2[i]:
-                if binaryVec2[i]==1:
-                    dist=dist-1
-    return dist
-
-def TwoMoviesDist(genreVec1, genreVec2):
-
-    genreDist = caculateVecDistance(genreVec1,genreVec2)
-    #if rate1>rate2:
-    #    rateDist = rate1-rate2
-    #else:
-    #    rateDist = rate2-rate1
-    #if year1 > year2:
-    #    yearDist = year1 - year2
-    #else:
-    #    yearDist = year2 - year1
-    #totalDist = (genreWeghit*genreDist)+(rateWeight*rateDist)+(yearWeight*yearDist)
-    #return totalDist
-    return genreDist
-
-
-def createMovieDistancesMatrix():
-    data = pd.read_csv('Movies_info2.csv', encoding='latin1')
-    moviesNum =len(data["title"])
-    genreMatrix = createGenreMatrix()
-    res = numpy.zeros((moviesNum, moviesNum))
-    i=0
-    for movie1 in data["title"]:
-        j=0
-        for movie2 in data["title"]:
-            if i==j:
-                curDist=0
-            else:
-                curDist = TwoMoviesDist(genreMatrix[i],genreMatrix[j])
-            res[i][j] = curDist
-            j=j+1
-        i=i+1
-    return res
-
 def createGenreMatrix():
     data = pd.read_csv('database_new2.csv',encoding='latin1')
     totalGenres = 23
@@ -63,13 +17,9 @@ def createGenreMatrix():
                  12: 'Horror', 13: 'Music', 14: 'Musical', 15: 'Mystery', 16: 'Romance',
                  17: {'Science Fiction', 'Sci-Fi'}, 18: {'Sports', 'Sport'}, 19: 'Thriller', 20: 'War', 21: 'Western',
                  22: 'Fitness'}
-
     for row in data["title"]:
         for i in range(3):
             curGenre = "genre"+str(i)
-            print(curGenre)
-            print(movieCount)
-            print(data.shape)
             genreA = data[curGenre][movieCount]
             genre = str(genreA).rstrip()
             for key in range(totalGenres):
@@ -102,35 +52,23 @@ def createUserTrainingSet():
             movieIdAndRate = usr[movieCount]
             movieID = int(movieIdAndRate[:movieIdAndRate.find(',')])
             movieID = movieID-1
-            #print(movieID)
             usrRate = int(movieIdAndRate[movieIdAndRate.find(',')+1:])
-            #todo: check the titles didn;t mess up the movies indexes-
-            #make surethe movie ID matches the genres we were expecting
-            #   add to each row: the user's rate
             userMatrix[movieCount][0:23] = genreMat[movieID]
             ImdbRate = moviesDatabase['rate'][movieID]
-            #Rating = float(ImdbRate)
             if type(ImdbRate) == float:
                 userMatrix[movieCount][23] = ImdbRate
             else:
-                #print(ImdbRate)
                 rateImdb, ten = str(ImdbRate).split('/', 1)
-                #print(movieID, moviesDatabase['title'][movieID])
-                #print("rate: ", rateImdb, " end")
                 userMatrix[movieCount][23] = (rateImdb)
-            #print(movieID)
             userMatrix[movieCount][24] = moviesDatabase['year'][movieID]
             userMatrix[movieCount][25] = usrRate
             movieCount = movieCount+1
         fileName = 'usersCSV/usr'+str(i-1)+'.csv'
         numpy.savetxt(fileName, userMatrix, delimiter=",")
-        print(i)
-        #todo:remove break
 
-
-#movieDistancesMatrix = createGenreMatrix()
-#print("finished genre matrix")
-#movieDistancesMatrix.dump("myMat.dat")
+movieDistancesMatrix = createGenreMatrix()
+print("finished genre matrix")
+movieDistancesMatrix.dump("myMat.dat")
 createUserTrainingSet()
 
 

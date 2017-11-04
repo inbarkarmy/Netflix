@@ -32,19 +32,19 @@ for line in open('probe.txt'):
                 usrRate = rate
                 break
         vec[0:23] = genreMat[int(movieID)-1,:]
-        ImdbRate = moviesDatabase['rate'][int(movieID)]
+        ImdbRate = moviesDatabase['rate'][int(movieID)-1]
         if type(ImdbRate) == float:
             vec[23] = ImdbRate
         else:
             rateImdb, ten = str(ImdbRate).split('/', 1)
             vec[23] = float(rateImdb)
-        vec[24] = moviesDatabase['year'][int(movieID)]
+        vec[24] = moviesDatabase['year'][int(movieID)-1]
         vec[25] = usrRate
         for i in range(0,26):
             csvlLine1[i] = vec[i]
         #csvlLine1 = [float(x) for x in csvlLine1]
         #csvlLine1 = [x.rstrip('\n') for x in csvlLine1]
-        print("csvline: ", csvlLine1, " End." )
+#        print("csvline: ", csvlLine1, " End." )
         #f_handler = open(fileName,'a')
         #numpy.savetxt(f_handler, csvlLine1)
         #f_handler.close()
